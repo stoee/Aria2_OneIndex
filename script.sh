@@ -1,4 +1,4 @@
-#2018-8-26 13:46:12
+#2020-1-7 22:56:12
 #!/bin/bash
 [ $(id -u) != "0" ] && { echo "错误: 您必须以root用户运行此脚本"; exit 1; }
 function check_system(){
@@ -51,7 +51,7 @@ function OneIndex_install(){
     fi
 }
 function aria2ng_install(){
-    mkdir -p /home/wwwroot/aria2ng && cd /home/wwwroot/aria2ng && wget https://raw.githubusercontent.com/marisn2017/Aria2_OneIndex/master/aria-ng-0.3.0.zip && unzip aria-ng-0.3.0.zip
+    mkdir -p /home/wwwroot/aria2ng && cd /home/wwwroot/aria2ng && wget https://github.com/stoee/Aria2_OneIndex/raw/master/AriaNg-1.1.4.zip && unzip AriaNg-1.1.4.zip
 	if [[ $? -eq 0 ]];then
         echo -e "AriaNg 下载成功"
         sleep 1
@@ -62,8 +62,8 @@ function aria2ng_install(){
 }
 function nginx_conf_add(){
     rm -rf /etc/nginx/conf.d/default.conf
-    wget -N -P  /etc/nginx/conf.d/ --no-check-certificate "https://raw.githubusercontent.com/marisn2017/Aria2_OneIndex/master/OneIndex.conf"
-    wget -N -P  /etc/nginx/conf.d/ --no-check-certificate "https://raw.githubusercontent.com/marisn2017/Aria2_OneIndex/master/aria2ng.conf"
+    wget -N -P  /etc/nginx/conf.d/ --no-check-certificate "https://github.com/stoee/Aria2_OneIndex/raw/master/OneIndex.conf"
+    wget -N -P  /etc/nginx/conf.d/ --no-check-certificate "https://github.com/stoee/Aria2_OneIndex/raw/master/aria2ng.conf"
 	if [[ $? -eq 0 ]];then
         echo -e "nginx 配置导入成功"
         sleep 1
@@ -79,17 +79,17 @@ function aria_install(){
 	yum -y install bzip2
 	cd /root
 	mkdir Download
-	wget -N --no-check-certificate "https://github.com/q3aql/aria2-static-builds/releases/download/v1.34.0/aria2-1.34.0-linux-gnu-64bit-build1.tar.bz2"
-	Aria2_Name="aria2-1.34.0-linux-gnu-64bit-build1"
-	tar jxvf "aria2-1.34.0-linux-gnu-64bit-build1.tar.bz2"
-	mv "aria2-1.34.0-linux-gnu-64bit-build1" "aria2"
+	wget -N --no-check-certificate "https://github.com/q3aql/aria2-static-builds/releases/download/v1.35.0/aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2"
+	Aria2_Name="aria2-1.35.0-linux-gnu-64bit-build1"
+	tar jxvf "aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2"
+	mv "aria2-1.35.0-linux-gnu-64bit-build1" "aria2"
 	cd "aria2/"
 	make install
 	cd /root
-	rm -rf aria2 aria2-1.34.0-linux-gnu-64bit-build1.tar.bz2
+	rm -rf aria2 aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2
 	mkdir "/root/.aria2" && cd "/root/.aria2"
-	wget "https://raw.githubusercontent.com/chiakge/Aria2-Rclone-DirectoryLister-Aria2Ng/master/sh/dht.dat"
-	wget "https://raw.githubusercontent.com/chiakge/Aria2-Rclone-DirectoryLister-Aria2Ng/master/sh/trackers-list-aria2.sh"
+	wget "https://github.com/chiakge/Aria2-Rclone-DirectoryLister-Aria2Ng/raw/master/sh/dht.dat"
+	wget "https://github.com/chiakge/Aria2-Rclone-DirectoryLister-Aria2Ng/raw/master/sh/trackers-list-aria2.sh"
 	echo '' > /root/.aria2/aria2.session
 	chmod +x /root/.aria2/trackers-list-aria2.sh
 	chmod 777 /root/.aria2/aria2.session
@@ -154,11 +154,11 @@ function install_web(){
 }
 function init_install(){
 	echo -e "开始配置Aria2自启和自动上传"
-	wget --no-check-certificate https://raw.githubusercontent.com/marisn2017/Aria2_OneIndex/master/aria2 -O /etc/init.d/aria2
+	wget --no-check-certificate https://github.com/stoee/Aria2_OneIndex/raw/master/aria2 -O /etc/init.d/aria2
 	chmod +x /etc/init.d/aria2
 	echo 'bash /etc/init.d/aria2 start' >> /etc/rc.local
 	cd /root/.aria2
-	wget --no-check-certificate https://raw.githubusercontent.com/marisn2017/Aria2_OneIndex/master/OneIndexupload.sh
+	wget --no-check-certificate https://github.com/stoee/Aria2_OneIndex/raw/master/OneIndexupload.sh
 	chmod +x /root/.aria2/OneIndexupload.sh
 	bash /etc/init.d/aria2 start
 }
@@ -176,8 +176,8 @@ function end(){
 	echo -e "Aria2Ng访问地址：http://${IPAddress}:8081/"
 	echo -e "OneIndex后台地址：http://${IPAddress}/?/admin"
 	echo -e "OneIndex后台后台默认密码：oneindex"
-	echo -e "\n五秒后将重启系统，请等待系统重启...\n"
-	sleep 5s
+	echo -e "\n10秒后将重启系统，请等待系统重启...\n"
+	sleep 10s
 	reboot now
 }
 function main(){
