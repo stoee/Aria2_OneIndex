@@ -87,7 +87,7 @@ function aria_install(){
 	cd /root/tmp/aria2Dir
 	make install
 	cd /root/tmp
-	rm -rf aria2 aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2
+	rm -rf aria2Dir aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2
 	mkdir "/root/.aria2" && cd "/root/.aria2" && cp ~/tmp/dht.dat . && cp ~/tmp/trackers-list-aria2.sh .
 	echo '' > /root/.aria2/aria2.session
 	chmod +x /root/.aria2/trackers-list-aria2.sh
