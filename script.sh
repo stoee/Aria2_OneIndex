@@ -82,9 +82,9 @@ function aria_install(){
 	mkdir Download
 	cd tmp
 	Aria2_Name="aria2-1.35.0-linux-gnu-64bit-build1"
-	tar jxvf "aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2"
-	mv "aria2-1.35.0-linux-gnu-64bit-build1" "aria2"
-	cd "aria2/"
+	tar jxvf aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2
+	mv aria2-1.35.0-linux-gnu-64bit-build1 aria2
+	cd /root/tmp/aria2
 	make install
 	cd /root/tmp
 	rm -rf aria2 aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2
@@ -153,7 +153,7 @@ function install_web(){
 }
 function init_install(){
 	echo -e "开始配置Aria2自启和自动上传"
-	cp /root/tmp/aria2 /etc/init.d/aria2
+	cp -rf /root/tmp/aria2 /etc/init.d/aria2
 	chmod +x /etc/init.d/aria2
 	echo 'bash /etc/init.d/aria2 start' >> /etc/rc.local
 	cd /root/.aria2
