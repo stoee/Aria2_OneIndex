@@ -51,7 +51,7 @@ function OneIndex_install(){
     fi
 }
 function aria2ng_install(){
-    mkdir -p /home/wwwroot/aria2ng && cd /home/wwwroot/aria2ng && wget https://github.com/stoee/Aria2_OneIndex/raw/master/AriaNg-1.1.4.zip && unzip AriaNg-1.1.4.zip
+    mkdir -p /home/wwwroot/aria2ng && cd /home/wwwroot/aria2ng && cp /root/tmp/AriaNg-1.1.4.zip . && unzip AriaNg-1.1.4.zip
 	if [[ $? -eq 0 ]];then
         echo -e "AriaNg 下载成功"
         sleep 1
@@ -62,8 +62,9 @@ function aria2ng_install(){
 }
 function nginx_conf_add(){
     rm -rf /etc/nginx/conf.d/default.conf
-    wget -N -P  /etc/nginx/conf.d/ --no-check-certificate "https://github.com/stoee/Aria2_OneIndex/raw/master/OneIndex.conf"
-    wget -N -P  /etc/nginx/conf.d/ --no-check-certificate "https://github.com/stoee/Aria2_OneIndex/raw/master/aria2ng.conf"
+    cd ~/tmp
+    cp OneIndex.conf /etc/nginx/conf.d/OneIndex.conf
+    cp aria2ng.conf /etc/nginx/conf.d/aria2ng.conf    
 	if [[ $? -eq 0 ]];then
         echo -e "nginx 配置导入成功"
         sleep 1
@@ -79,17 +80,15 @@ function aria_install(){
 	yum -y install bzip2
 	cd /root
 	mkdir Download
-	wget -N --no-check-certificate "https://github.com/q3aql/aria2-static-builds/releases/download/v1.35.0/aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2"
+	cd tmp
 	Aria2_Name="aria2-1.35.0-linux-gnu-64bit-build1"
 	tar jxvf "aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2"
 	mv "aria2-1.35.0-linux-gnu-64bit-build1" "aria2"
 	cd "aria2/"
 	make install
-	cd /root
+	cd /root/tmp
 	rm -rf aria2 aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2
-	mkdir "/root/.aria2" && cd "/root/.aria2"
-	wget "https://github.com/stoee/Aria2_OneIndex/raw/master/dht.dat"
-	wget "https://github.com/stoee/Aria2_OneIndex/raw/master/trackers-list-aria2.sh"
+	mkdir "/root/.aria2" && cd "/root/.aria2" && cp ~/tmp/dht.dat . && cp ~/tmp/trackers-list-aria2.sh .
 	echo '' > /root/.aria2/aria2.session
 	chmod +x /root/.aria2/trackers-list-aria2.sh
 	chmod 777 /root/.aria2/aria2.session
@@ -154,11 +153,11 @@ function install_web(){
 }
 function init_install(){
 	echo -e "开始配置Aria2自启和自动上传"
-	wget --no-check-certificate https://github.com/stoee/Aria2_OneIndex/raw/master/aria2 -O /etc/init.d/aria2
+	cp /root/tmp/aria2 /etc/init.d/aria2
 	chmod +x /etc/init.d/aria2
 	echo 'bash /etc/init.d/aria2 start' >> /etc/rc.local
 	cd /root/.aria2
-	wget --no-check-certificate https://github.com/stoee/Aria2_OneIndex/raw/master/OneIndexupload.sh
+	cp /root/tmp/OneIndexupload.sh .
 	chmod +x /root/.aria2/OneIndexupload.sh
 	bash /etc/init.d/aria2 start
 }
