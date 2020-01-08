@@ -83,8 +83,8 @@ function aria_install(){
 	cd tmp
 	Aria2_Name="aria2-1.35.0-linux-gnu-64bit-build1"
 	tar jxvf aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2
-	mv aria2-1.35.0-linux-gnu-64bit-build1 aria2
-	cd /root/tmp/aria2
+	mv aria2-1.35.0-linux-gnu-64bit-build1 aria2Dir
+	cd /root/tmp/aria2Dir
 	make install
 	cd /root/tmp
 	rm -rf aria2 aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2
