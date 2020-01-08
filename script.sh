@@ -88,8 +88,8 @@ function aria_install(){
 	cd /root
 	rm -rf aria2 aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2
 	mkdir "/root/.aria2" && cd "/root/.aria2"
-	wget "https://github.com/chiakge/Aria2-Rclone-DirectoryLister-Aria2Ng/raw/master/sh/dht.dat"
-	wget "https://github.com/chiakge/Aria2-Rclone-DirectoryLister-Aria2Ng/raw/master/sh/trackers-list-aria2.sh"
+	wget "https://github.com/stoee/Aria2_OneIndex/raw/master/dht.dat"
+	wget "https://github.com/stoee/Aria2_OneIndex/raw/master/trackers-list-aria2.sh"
 	echo '' > /root/.aria2/aria2.session
 	chmod +x /root/.aria2/trackers-list-aria2.sh
 	chmod 777 /root/.aria2/aria2.session
